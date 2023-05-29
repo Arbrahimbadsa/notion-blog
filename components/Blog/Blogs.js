@@ -13,9 +13,7 @@ function Blogs({ homePage, blogPage, ...props }) {
   useEffect(() => {
     async function fetchBlogdata() {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/notion?query=blogs"
-        );
+        const response = await axios.get(`/api/notion?query=blogs`);
         setBlogdata(response.data.results);
       } catch (error) {
         console.error(error);
@@ -62,11 +60,11 @@ function Blogs({ homePage, blogPage, ...props }) {
         )}
       </div>
       <div className="py-[50px] flex flex-col gap-3">
-        {blogData.map((data) => (
+        {blogData.map((data, i) => (
           <BlogCard
-            key={data.id}
+            key={i}
             title={data.properties.Name.title[0].text.content}
-            avatar={data.properties.Author.people[0].avatar_url} 
+            avatar={data.properties.Author.people[0].avatar_url}
             author={data.properties.Author.people[0].name}
             created={data.properties.Created.created_time}
             tags={data.properties.Tags.multi_select}

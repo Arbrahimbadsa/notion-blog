@@ -10,7 +10,7 @@ function BlogCardFooter({ tags, openUrl }) {
       </div>
       <div className="flex items-center gap-3">
         <Link href={openUrl}>
-          <button className="btn btn-active btn-primary">Read </button>
+          <button className="btn btn-active btn-primary">Read</button>
         </Link>
       </div>
     </div>
