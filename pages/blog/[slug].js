@@ -200,7 +200,7 @@ const BpageSidebar = ({ author }) => {
         <div className="flex flex-col">
           <h6 className="text-[17px] font-medium">{author?.name}</h6>
           <span className="text-[14px] font-normal text-gray-200">
-            Engineering Manager{" "}
+            Engineering Manager
           </span>
         </div>
       </div>
