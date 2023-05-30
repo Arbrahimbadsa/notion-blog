@@ -39,6 +39,8 @@ const BookmarkBlock = ({ block }) => {
             alignItems: "center",
             justifyContent: "flex-start",
             gap: "8px",
+            width: "100%",
+            wordWrap: "break-word",
           }}
           href={preview?.url}
         >
