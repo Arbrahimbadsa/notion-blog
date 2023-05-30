@@ -27,8 +27,15 @@ const BookmarkBlock = ({ block }) => {
   const loader1 = ({ src }) => preview?.logo?.url;
 
   return (
-    <div style={{ display: "flex", padding: "16px", border: "1px solid grey" }}>
-      <div style={{ flexGrow: 1 }}>
+    <div
+      style={{
+        display: "flex",
+        padding: "16px",
+        border: "1px solid grey",
+        flexWrap: "wrap",
+      }}
+    >
+      <div style={{ flexGrow: "1" }}>
         <p>{preview?.title}</p>
         <p style={{ color: "grey" }}>{preview?.author}</p>
         <a
@@ -39,8 +46,6 @@ const BookmarkBlock = ({ block }) => {
             alignItems: "center",
             justifyContent: "flex-start",
             gap: "8px",
-            width: "100%",
-            wordWrap: "break-word",
           }}
           href={preview?.url}
         >
@@ -54,7 +59,9 @@ const BookmarkBlock = ({ block }) => {
             height={20}
             width={20}
           />
-          {preview?.url}
+          <span style={{ overflow: "hidden", wordBreak: "break-word" }}>
+            {preview?.url}
+          </span>
         </a>
       </div>
       <div>
