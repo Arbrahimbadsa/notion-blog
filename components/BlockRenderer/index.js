@@ -4,6 +4,8 @@ import BookmarkBlock from "./BookmarkBlock";
 import EmbedBlock from "./EmbedBlock";
 import VideoBlock from "./VideoBlock";
 import HeadingBlock from "./HeadingBlock";
+import BulletedListBlock from "./BulletedListBlock";
+import ImageBlock from "./ImageBlock";
 
 const BlockRenderer = ({ block }) => {
   const blockType = block.type;
@@ -16,6 +18,8 @@ const BlockRenderer = ({ block }) => {
     heading_1: HeadingBlock,
     heading_2: HeadingBlock,
     heading_3: HeadingBlock,
+    bulleted_list_item: BulletedListBlock,
+    image: ImageBlock,
     // Add more mappings for other block types as needed
   };
 
