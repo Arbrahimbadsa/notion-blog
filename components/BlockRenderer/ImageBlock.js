@@ -11,7 +11,13 @@ const ImageBlock = ({ block }) => {
 
   return (
     <div>
-      <Image loader={loader} src={imageUrl} alt="" width={500} height={300} />
+      <Image
+        loader={loader}
+        src={imageUrl}
+        alt=""
+        width={innerWidth}
+        height={300}
+      />
     </div>
   );
 };

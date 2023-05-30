@@ -53,8 +53,8 @@ const EmbedBlock = ({ block }) => {
           src={`https://open.spotify.com/embed/${
             url.split("https://open.spotify.com/")[1]
           }`}
-          width="300"
-          height="380"
+          width="100%"
+          height="300px"
           frameBorder="0"
           allowTransparency="true"
           allow="encrypted-media"

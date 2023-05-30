@@ -39,6 +39,8 @@ const VideoBlock = ({ block }) => {
         return (
           <div className="video">
             <iframe
+              style={{ minHeight: "450px" }}
+              width="100%"
               src={`https://www.youtube.com/embed/${videoId}`}
               frameBorder="0"
               allowFullScreen

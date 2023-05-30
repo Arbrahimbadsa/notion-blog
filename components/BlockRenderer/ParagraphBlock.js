@@ -15,17 +15,23 @@ const ParagraphBlock = ({ block }) => {
       } else if (textNode.annotations.code) {
         return (
           <code
-            style={{ background: "rgb(245, 242, 240)", padding: "0 3px" }}
+            style={{
+              background: "black",
+              color: "#fff",
+              padding: "3px 5px",
+              borderRadius: "5px",
+            }}
             key={index}
           >
             {textNode.plain_text}
           </code>
         );
-      } else if (textNode.annotations.link) {
+      } else if (textNode.text.link) {
         return (
           <a
             key={index}
             href={textNode.href}
+            style={{ color: "blue" }}
             target="_blank"
             rel="noopener noreferrer"
           >
