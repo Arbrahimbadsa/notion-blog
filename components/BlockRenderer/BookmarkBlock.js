@@ -68,6 +68,7 @@ const BookmarkBlock = ({ block }) => {
         <Image
           style={{
             height: "100px",
+            width: "100px",
           }}
           src={preview?.image?.url}
           loader={loader}
