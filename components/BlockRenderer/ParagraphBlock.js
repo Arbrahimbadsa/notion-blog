@@ -16,7 +16,7 @@ const ParagraphBlock = ({ block }) => {
         return (
           <code
             style={{
-              background: "black",
+              background: "#133275",
               color: "#fff",
               padding: "3px 5px",
               borderRadius: "5px",
