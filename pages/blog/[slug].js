@@ -8,7 +8,7 @@ import BlockRenderer from "@/components/BlockRenderer";
 
 function blogpage({ data, blocks }) {
   const title = data?.properties?.Name?.title[0]?.plain_text;
-  const content = data?.properties?.Description?.rich_text[0]?.plain_text;
+  const des = data?.properties?.Description?.rich_text[0]?.plain_text;
   const tags = data?.properties?.Tags?.multi_select?.map((item) => item.name);
   const createdAt = data?.properties?.Created?.created_time;
   const author = data?.properties?.Author?.people[0];
@@ -17,9 +17,14 @@ function blogpage({ data, blocks }) {
   return (
     <>
       <Container>
-        <BpgaeHeader createdAt={createdAt} tags={tags} title={title} />
+        <BpgaeHeader
+          description={des}
+          createdAt={createdAt}
+          tags={tags}
+          title={title}
+        />
         <div className="max-lg:flex-col bpagegrid">
-          <BpageContent blocks={blocks} content={content} />
+          <BpageContent blocks={blocks} />
           <BpageSidebar author={author} />
         </div>
       </Container>
@@ -27,7 +32,7 @@ function blogpage({ data, blocks }) {
   );
 }
 
-const BpgaeHeader = ({ title, tags, createdAt }) => {
+const BpgaeHeader = ({ title, tags, createdAt, description }) => {
   return (
     <div className="flex flex-col py-[24px]">
       <div>
@@ -56,10 +61,9 @@ const BpgaeHeader = ({ title, tags, createdAt }) => {
         <h1 className="text-[48px] font-semibold tracking-[-.04em] leading-[1.25]">
           {title}
         </h1>
-        {/* <p className="text-[24px] text-secondary-900 tracking-[-.04em] leading-[1.5]">
-          Get detailed, first-party page views, traffic analytics, and now
-          custom events with Vercel Web Analytics
-        </p> */}
+        <p className="text-[24px] text-secondary-900 tracking-[-.04em] leading-[1.5]">
+          {description}
+        </p>
       </div>
     </div>
   );

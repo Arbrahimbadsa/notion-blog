@@ -6,6 +6,9 @@ import VideoBlock from "./VideoBlock";
 import HeadingBlock from "./HeadingBlock";
 import BulletedListBlock from "./BulletedListBlock";
 import ImageBlock from "./ImageBlock";
+import CodeBlock from "./CodeBlock";
+import QuoteBlock from "./QuoteBlock";
+import TodoBlock from "./TodoBlock";
 
 const BlockRenderer = ({ block }) => {
   const blockType = block.type;
@@ -20,6 +23,9 @@ const BlockRenderer = ({ block }) => {
     heading_3: HeadingBlock,
     bulleted_list_item: BulletedListBlock,
     image: ImageBlock,
+    code: CodeBlock,
+    quote: QuoteBlock,
+    to_do: TodoBlock,
     // Add more mappings for other block types as needed
   };
 
@@ -27,7 +33,11 @@ const BlockRenderer = ({ block }) => {
   const Component = componentMapping[blockType];
 
   if (Component) {
-    return <Component block={block} />;
+    return (
+      <div style={{ margin: "16px 0" }}>
+        <Component block={block} />
+      </div>
+    );
   } else {
     return <div>Unsupported block type: {blockType}</div>;
   }

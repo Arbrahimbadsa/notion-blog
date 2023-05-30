@@ -13,7 +13,14 @@ const ParagraphBlock = ({ block }) => {
       } else if (textNode.annotations.strikethrough) {
         return <del key={index}>{textNode.plain_text}</del>;
       } else if (textNode.annotations.code) {
-        return <code key={index}>{textNode.plain_text}</code>;
+        return (
+          <code
+            style={{ background: "rgb(245, 242, 240)", padding: "0 3px" }}
+            key={index}
+          >
+            {textNode.plain_text}
+          </code>
+        );
       } else if (textNode.annotations.link) {
         return (
           <a
