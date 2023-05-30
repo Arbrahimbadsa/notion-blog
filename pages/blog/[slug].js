@@ -4,138 +4,22 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import Container from "@/components/layout/Container";
 import axios from "axios";
 import dateFormat from "dateformat";
+import BlockRenderer from "@/components/BlockRenderer";
 
-function blogpage({ data }) {
+function blogpage({ data, blocks }) {
   const title = data?.properties?.Name?.title[0]?.plain_text;
   const content = data?.properties?.Description?.rich_text[0]?.plain_text;
   const tags = data?.properties?.Tags?.multi_select?.map((item) => item.name);
   const createdAt = data?.properties?.Created?.created_time;
   const author = data?.properties?.Author?.people[0];
-  /*
-  {
-    "Updated": {
-        "id": "CY%3Cm",
-        "type": "last_edited_time",
-        "last_edited_time": "2023-05-29T13:42:00.000Z"
-    },
-    "Published": {
-        "id": "FYbH",
-        "type": "checkbox",
-        "checkbox": true
-    },
-    "Tags": {
-        "id": "Ii%60D",
-        "type": "multi_select",
-        "multi_select": [
-            {
-                "id": "5d780d70-3a2f-4ab6-9907-ba8c5c7c394c",
-                "name": "Company News",
-                "color": "blue"
-            },
-            {
-                "id": "148703ad-481e-40db-9592-11adf959770d",
-                "name": "Engineering",
-                "color": "default"
-            }
-        ]
-    },
-    "Created": {
-        "id": "N%7DAn",
-        "type": "created_time",
-        "created_time": "2023-05-29T13:42:00.000Z"
-    },
-    "Cover": {
-        "id": "YN_a",
-        "type": "files",
-        "files": [
-            {
-                "name": "fabrizio-conti-kXVogATbFgA-unsplash.jpg",
-                "type": "file",
-                "file": {
-                    "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9f8be005-119d-46ea-8a76-252966949122/fabrizio-conti-kXVogATbFgA-unsplash.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230529%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230529T151021Z&X-Amz-Expires=3600&X-Amz-Signature=6607f2161134b48a56ab1b400a67b3a0408335e333800761c13418f932e0cc89&X-Amz-SignedHeaders=host&x-id=GetObject",
-                    "expiry_time": "2023-05-29T16:10:21.905Z"
-                }
-            }
-        ]
-    },
-    "Slug": {
-        "id": "Ytq%3C",
-        "type": "formula",
-        "formula": {
-            "type": "string",
-            "string": "Visual-Editing:-Click-to-edit-content-for-headless-CMSes-2c7086ffb4d64e729fb2b6ba9eeb6f4d"
-        }
-    },
-    "Author": {
-        "id": "%5C%7CLS",
-        "type": "people",
-        "people": [
-            {
-                "object": "user",
-                "id": "8fd22066-9f4b-4285-b634-03bda4f21bc7"
-            }
-        ]
-    },
-    "Description": {
-        "id": "%5C%7Cdb",
-        "type": "rich_text",
-        "rich_text": [
-            {
-                "type": "text",
-                "text": {
-                    "content": "The next step in faster collaboration is here for Vercel's frontend cloud.",
-                    "link": null
-                },
-                "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                },
-                "plain_text": "The next step in faster collaboration is here for Vercel's frontend cloud.",
-                "href": null
-            }
-        ]
-    },
-    "No": {
-        "id": "zDpw",
-        "type": "number",
-        "number": null
-    },
-    "Name": {
-        "id": "title",
-        "type": "title",
-        "title": [
-            {
-                "type": "text",
-                "text": {
-                    "content": "Visual Editing: Click-to-edit content for headless CMSes",
-                    "link": null
-                },
-                "annotations": {
-                    "bold": true,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                },
-                "plain_text": "Visual Editing: Click-to-edit content for headless CMSes",
-                "href": null
-            }
-        ]
-    }
-}
-  
-  */
+  console.log(data);
+  console.log(blocks);
   return (
     <>
       <Container>
         <BpgaeHeader createdAt={createdAt} tags={tags} title={title} />
         <div className="max-lg:flex-col bpagegrid">
-          <BpageContent content={content} />
+          <BpageContent blocks={blocks} content={content} />
           <BpageSidebar author={author} />
         </div>
       </Container>
@@ -209,10 +93,12 @@ const BpageSidebar = ({ author }) => {
   );
 };
 
-const BpageContent = ({ content }) => {
+const BpageContent = ({ blocks }) => {
   return (
     <div className="lg:border-r-[1px] lg:border-danger-900">
-      <h2>{content}</h2>
+      {blocks.map((block) => (
+        <BlockRenderer key={block.id} block={block} />
+      ))}
     </div>
   );
 };
@@ -230,9 +116,12 @@ export async function getStaticProps(context) {
   const { slug } = context.params;
   const url = `${process.env.ENDPOINT}/api/blogs?query=blogs&slug=${slug}`;
   const { data } = await axios.get(url);
+  const blockUrl = `${process.env.ENDPOINT}/api/blocks?pageId=${data?.Results[0]?.id}`;
+  const { data: blocks } = await axios.get(blockUrl);
   return {
     props: {
       data: data?.Results[0],
+      blocks,
     },
   };
 }
