@@ -10,6 +10,7 @@ const nextConfig = {
       "s3.us-west-2.amazonaws.com",
       "images.pexels.com",
       "lh3.googleusercontent.com",
+      "i.scdn.co",
     ],
   },
 };

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const ImageBlock = ({ block }) => {
   const { image } = block;
-  const imageUrl = image?.file?.url;
+  const imageUrl = image?.file?.url ?? image?.external?.url;
   const loader = ({ src }) => imageUrl;
 
   if (!imageUrl) {

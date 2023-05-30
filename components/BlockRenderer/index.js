@@ -26,6 +26,7 @@ const BlockRenderer = ({ block }) => {
     code: CodeBlock,
     quote: QuoteBlock,
     to_do: TodoBlock,
+    bookmark: BookmarkBlock,
     // Add more mappings for other block types as needed
   };
 
@@ -39,7 +40,7 @@ const BlockRenderer = ({ block }) => {
       </div>
     );
   } else {
-    return <div>Unsupported block type: {blockType}</div>;
+    return null;
   }
 };
 
