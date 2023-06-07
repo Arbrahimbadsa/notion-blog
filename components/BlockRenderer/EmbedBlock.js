@@ -1,3 +1,5 @@
+import { Tweet } from 'react-twitter-widgets';
+
 const EmbedBlock = ({ block }) => {
   const { url } = block.embed;
 
@@ -35,13 +37,7 @@ const EmbedBlock = ({ block }) => {
     );
     const tweetId = tweetIdMatch ? tweetIdMatch[1] : null;
     if (tweetId) {
-      return (
-        <div className="twitter-embed">
-          <blockquote className="twitter-tweet">
-            <a href={url}></a>
-          </blockquote>
-        </div>
-      );
+      return <Tweet tweetId={tweetId}/>;
     }
   };
 
