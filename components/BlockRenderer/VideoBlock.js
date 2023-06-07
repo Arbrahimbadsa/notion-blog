@@ -1,5 +1,9 @@
 const VideoBlock = ({ block }) => {
-  const { url } = block.video.external;
+  const { type } = block;
+  const video = block[type];
+  const url = video?.url ?? video?.file?.url ?? "";
+
+  if (!url) return <p>Something went wrong while displaying the video.</p>;
 
   // Helper function to extract video ID from YouTube URL
   const extractYouTubeVideoId = (url) => {
@@ -25,9 +29,9 @@ const VideoBlock = ({ block }) => {
     } else if (url.includes("vimeo.com")) {
       const videoId = extractVimeoVideoId(url);
       return { platform: "vimeo", videoId };
+    } else {
+      return { platform: "upload", videoId: url };
     }
-    // Unsupported or unrecognized video platform
-    return { platform: "unsupported", videoId: null };
   };
 
   const { platform, videoId } = getVideoData();
@@ -59,6 +63,10 @@ const VideoBlock = ({ block }) => {
             ></iframe>
           </div>
         );
+      case "upload":
+        return <video src={videoId} controls>
+          Your browser doesn't support video, sorry!
+        </video>;
       default:
         return <p>Unsupported video platform: {platform}</p>;
     }
