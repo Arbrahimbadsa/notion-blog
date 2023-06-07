@@ -1,3 +1,6 @@
+import React from "react";
+import ReactPlayer from "react-player";
+
 const VideoBlock = ({ block }) => {
   const { type } = block;
   const video = block[type];
@@ -64,9 +67,9 @@ const VideoBlock = ({ block }) => {
           </div>
         );
       case "upload":
-        return <video src={videoId} controls>
-          Your browser doesn't support video, sorry!
-        </video>;
+        return (
+          <ReactPlayer controls={true} url={videoId} />
+        );
       default:
         return <p>Unsupported video platform: {platform}</p>;
     }
