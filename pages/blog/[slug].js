@@ -5,6 +5,7 @@ import Container from "@/components/layout/Container";
 import axios from "axios";
 import dateFormat from "dateformat";
 import BlockRenderer from "@/components/BlockRenderer";
+import { addIndexToNumberedListItems } from "@/utils/addIndex";
 
 function blogpage({ data, blocks }) {
   const title = data?.properties?.Name?.title[0]?.plain_text;
@@ -98,9 +99,10 @@ const BpageSidebar = ({ author }) => {
 };
 
 const BpageContent = ({ blocks }) => {
+  const blocksWithIndex = addIndexToNumberedListItems(blocks);
   return (
     <div className="lg:border-r-[1px] lg:border-danger-900">
-      {blocks.map((block) => (
+      {blocksWithIndex.map((block) => (
         <BlockRenderer key={block.id} block={block} />
       ))}
     </div>
