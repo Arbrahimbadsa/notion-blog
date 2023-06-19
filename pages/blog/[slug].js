@@ -111,14 +111,14 @@ const BpageContent = ({ blocks }) => {
 
 export default blogpage;
 
-// export async function getStaticPaths() {
-//   return {
-//     paths: [],
-//     fallback: "blocking",
-//   };
-// }
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+}
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const { slug } = context.params;
   const url = `${process.env.ENDPOINT}/api/blogs?query=blogs&slug=${slug}`;
   const { data } = await axios.get(url);
