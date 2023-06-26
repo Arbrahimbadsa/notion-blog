@@ -16,20 +16,13 @@ export default function Home({ results }) {
 }
 
 export async function getStaticProps() {
-  try {
-    const { data } = await axios.get(
-      `${process.env.ENDPOINT}/api/notion?query=blogs`
-    );
-    return {
-      props: {
-        results: data?.results,
-      },
-      revalidate: 1,
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {},
-    };
-  }
+  const { data } = await axios.get(
+    `${process.env.ENDPOINT}/api/notion?query=blogs`
+  );
+  return {
+    props: {
+      results: data?.results,
+    },
+    revalidate: 5,
+  };
 }

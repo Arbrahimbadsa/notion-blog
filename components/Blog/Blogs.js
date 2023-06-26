@@ -65,8 +65,8 @@ function Blogs({ homePage, results, blogPage, ...props }) {
             <BlogCard
               key={i}
               title={data.properties.Name.title[0].text.content}
-              avatar={data.properties.Author.people[0].avatar_url}
-              author={data.properties.Author.people[0].name}
+              avatar={data.properties.Author.people[0]?.avatar_url}
+              author={data.properties.Author.people[0]?.name}
               created={data.properties.Created.created_time}
               tags={data.properties.Tags.multi_select}
               openUrl={`blog/${data.properties.Slug.formula.string}`}
